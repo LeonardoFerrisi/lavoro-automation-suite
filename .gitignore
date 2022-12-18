@@ -18,3 +18,5 @@ bin-release/
 # information for Eclipse / Flash Builder.
 venv/*
 .las/*
+
+src\cover_letter_gen.py
