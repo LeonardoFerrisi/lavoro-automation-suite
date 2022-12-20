@@ -17,6 +17,11 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 venv/*
-.las/*
+# .las/*
 
-src\cover_letter_gen.py
+src/cover_letter_gen.py
+applicant_info/*
+
+.db_env
+.las
+upload_to_database.py
