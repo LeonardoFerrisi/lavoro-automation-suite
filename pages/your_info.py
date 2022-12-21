@@ -9,11 +9,14 @@ import random
 # Functions ------------------
 def show_resume(filename):
     file = db.drive.get(filename)
+    # j = file.read()
+    st.write(os.listdir("."))
     j = open(filename, "r")
 
     data = json.load(j)
     st.write(data)
-    j.close()
+    # j.close()
+    file.close()
 
 #     # st.write(data)
 
