@@ -5,20 +5,30 @@ from dotenv import load_dotenv
 import os
 import json
 import random
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse
+
+# def download(name):
+#     app = FastAPI()
+    
+#     @app.get("/download/{name}")
+#     def download_file(name: str):
+#         res = db.drive.get(name)
+#         return StreamingResponse(res.iter_chunks(4096), media_type="application/json")
+    
+#     return download_file(name)
 
 # Functions ------------------
 def show_resume(filename):
+    # download(filename)
     file = db.drive.get(filename)
-    # j = file.read()
-    st.write(os.listdir("."))
-    j = open(filename, "r")
+    j = file.read().decode('utf8')
 
-    data = json.load(j)
+    data = json.loads(j)
     st.write(data)
-    # j.close()
-    file.close()
+    with open(filename, 'w') as outfile:
+        json.dump(data, outfile, indent=4)
 
-#     # st.write(data)
 
     # Basics
 
@@ -107,7 +117,7 @@ def main():
         files = info["data"]
         if files:
             resumejson = st.selectbox(label="Available Files", options=info["data"])
-
+            st.info("Warning! No save functionality!")
             show_resume(resumejson)
         else:
             st.info("No files to display!")
