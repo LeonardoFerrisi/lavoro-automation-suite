@@ -67,6 +67,8 @@ def get_user(username):
     """
     return db.get(username)
 
+
+
 def update_user(username, updates):
     """
     If an item is updated, returns None. Otherwise, an exception is raised

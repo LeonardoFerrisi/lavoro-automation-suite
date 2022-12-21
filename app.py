@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit_authenticator as stauth
 import database as db
 import userapplication as userapp
+from userapplication import change_state, check_state, log_user, unlog_user
 
 class Application:
 
@@ -21,6 +22,11 @@ class Application:
             st.error(e)
 
     def prompt_login(self, authenticator:stauth.Authenticate, credentials):
+        
+        if check_state():
+            change_state("False")
+            unlog_user()
+            
         # Show Login Form
         name, authentication_status, username = authenticator.login("Login", "main")
         if authentication_status == False:
@@ -29,11 +35,14 @@ class Application:
             st.warning("Please enter your username and password")
         if authentication_status:
             st.write("Success!")
+            log_user(username=username)
+            
 
             # userdeta = credentials["usernames"][username]
             self.current_user = username
             # Have a logout button on sidebar
             self.LOGGEDIN = True
+            change_state("True")
 
     def main(self):
         
